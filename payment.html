@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Interface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #f0f4f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        section {
+            width: 100%;
+            max-width: 500px;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #4CAF50;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #fafafa;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .qr_code {
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        .upi-option {
+            text-align: center;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .upi-link {
+            background-color: #ff7043;
+            padding: 12px 20px;
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+            display: inline-block;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .note {
+            text-align: center;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .download_now {
+            background-color: #0066cc;
+            margin-top: 20px;
+        }
+
+        .download_now:hover {
+            background-color: #005bb5;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 20px;
+        }
+        p{
+            font-size: smaller;
+        }
+        .product-price {
+            font-size: 1 rem;
+            color: #28a745;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .timer {
+            font-size: 1rem;
+            color: #d9534f;
+            text-align: center;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h1>Payment Interface</h1>
+
+        <div class="product-price">
+            Price: <span id="product-price">Rs 70</span>
+        </div>
+
+        <div class="form-group">
+            <label>Coupon Code (if any)</label>
+            <input type="text" placeholder="Enter Coupon Code" class="coupon_code">
+        </div>
+        <button class="verify-btn">Apply Coupon</button>
+        <div class="qr_code">
+            <p>Scan the QR Code with any UPI app to complete the payment.</p>
+            <img src="" alt="QR Code" class="get_qr">
+        </div>
+
+        <div class="timer" id="countdown-timer"></div>
+
+        <div class="upi-option">
+            <p>OR</p>
+            <a href="#" class="upi-link">Open UPI App</a>
+        </div>
+        <div class="form-group">
+            <label>UTR/Transaction ID (12 digits)</label>
+            <input type="text" class="id" placeholder="Enter Transaction ID" maxlength="12">
+            <button class="download_now">Download Now</button>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 twelve.ten - All rights reserved</p>
+        </div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Initialize product price
+            let productPrice = 70;
+            let discountedPrice = 39;
+            let couponApplied = false;
+
+            // Generate QR code initially for the base price (Rs 70)
+            var defaultUpiLink = "upi://pay?pa=9110218701@ybl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase";
+            var defaultQrLink = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(defaultUpiLink);
+            $(".get_qr").attr("src", defaultQrLink);
+            $(".qr_code").fadeIn();
+
+            $(".verify-btn").click(function() {
+                var coupon = $(".coupon_code").val();
+                var upiLink;
+
+                // Determine payment amount based on coupon
+                if (coupon === "RH2024") {
+                    productPrice = discountedPrice;
+                    couponApplied = true;
+                } else {
+                    productPrice = 70;
+                    couponApplied = false;
+                }
+
+                // Update product price displayed
+                $("#product-price").text("Rs " + productPrice);
+
+                // Generate QR code
+                var qrLink = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent("upi://pay?pa=9110218701@ybl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase");
+                $(".get_qr").attr("src", qrLink);
+            });
+
+            $(".download_now").click(function() {
+                var transactionId = $(".id").val();
+                if (transactionId.length === 12) {
+                    window.open('download.html', '_blank');
+                } else {
+                    alert("Please enter a valid 12-digit UTR/Transaction ID.");
+                }
+            });
+
+            $(".upi-link").click(function() {
+                window.location.href = "upi://pay?pa=9110218701@ybl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase";
+            });
+
+            // Countdown Timer
+            function updateCountdown() {
+                const endDate = new Date("2024-10-12T00:00:00");
+                const now = new Date();
+                const timeRemaining = endDate - now;
+
+                const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                if (timeRemaining < 0) {
+                    $("#countdown-timer").text("Sale has ended.");
+                } else {
+                    $("#countdown-timer").text(`Time remaining: ${days}d ${hours}h ${minutes}m ${seconds}s`);
+                }
+            }
+
+            // Update countdown every second
+            setInterval(updateCountdown, 1000);
+            updateCountdown(); // Initial call
+        });
+    </script>
+</body>
+</html>
