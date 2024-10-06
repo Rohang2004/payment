@@ -174,20 +174,38 @@
                 }
             });
 
-            // Generate QR Code after validation
-            $(".generate_qr").click(function() {
-                var link = "upi://pay?pa=9110218701@ybl&pn=YourName&am=39&cu=INR&tn=Purchase";
-                var qrLink = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(link);
-                $(".get_qr").attr("src", qrLink);
-                $(".qr_code").show(); // Show QR code section after generation
-            });
+                        // Validate coupon code and adjust the UPI link accordingly
+$(".generate_qr").click(function() {
+    var coupon = $(".coupon_code").val();
+    var upiLink = "";
 
-            // Open UPI App with fixed amount of Rs. 39
-            $(".upi-link").click(function() {
-                var upiLink = "upi://pay?pa=9110218701@ybl&pn=YourName&am=39&cu=INR&tn=Purchase";
-                window.location.href = upiLink;
-            });
+    if (coupon === "RH2024") {
+        upiLink = "upi://pay?pa=9110218701@ybl&pn=YourName&am=39&cu=INR&tn=Purchase";
+        $(".discount").html(`Rs39 <span class="old-price">Rs70</span> (Coupon applied!)`);
+    } else {
+        upiLink = "upi://pay?pa=9110218701@ybl&pn=YourName&am=70&cu=INR&tn=Purchase";
+        $(".discount").html(`Rs70 <span class="old-price"></span> (No coupon applied)`);
+    }
 
+    // Generate the QR Code with the correct UPI link
+    var qrLink = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(upiLink);
+    $(".get_qr").attr("src", qrLink);
+    $(".qr_code").show(); // Show QR code section after generation
+});
+
+// Open UPI App with the dynamically generated UPI link
+$(".upi-link").click(function() {
+    var coupon = $(".coupon_code").val();
+    var upiLink = "";
+
+    if (coupon === "RH2024") {
+        upiLink = "upi://pay?pa=9110218701@ybl&pn=YourName&am=39&cu=INR&tn=Purchase";
+    } else {
+        upiLink = "upi://pay?pa=9110218701@ybl&pn=YourName&am=70&cu=INR&tn=Purchase";
+    }
+
+    window.location.href = upiLink; // Redirect to UPI payment
+});
             // Countdown Timer
             function updateTimer() {
                 var now = new Date();
@@ -197,59 +215,47 @@
                 if (timeRemaining > 0) {
                     var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
                     var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var minutes = Math.floor((timeRemaining % (1000 * 60)) / (1000 * 60));
+                    var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
                     var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-                    $(".timer").html(`Hurry! Deal ends in ${days}d ${hours}h ${minutes}m ${seconds}s`);
+                    $(".timer").text("Sale ends in: " + days + "d " + hours + "h " + minutes + "m " + seconds + "s");
                 } else {
-                    $(".timer").html("Deal has ended!");
+                    $(".timer").text("Sale has ended.");
                 }
             }
 
             setInterval(updateTimer, 1000);
-
-            // Validate Transaction ID and redirect to download
-            $(".download_now").click(function() {
-        var id = $(".id").val();
-        
-        // Check if the UTR ID is 12 digits long
-        if (id.length === 12 && !isNaN(id)) {
-            window.location.href = "download.html"; // Redirect to the download page
-        } else {
-            alert("Please enter a valid 12-digit Transaction ID.");
-        }
-    });
         });
     </script>
 </head>
-
 <body>
     <section>
-        <h1>MODS4BUSSID</h1>
-        <p style="text-align: center; color: #0989ff; font-size: 14px;">- By twelve.ten</p>
-        
-        <!-- Login Form -->
+        <h1>twelve.ten</h1>
+        <p class="note">Ensure to provide accurate UTR/Transaction ID for successful download!</p>
+
         <div class="login-form">
             <div class="flex">
-                <label>User ID*</label>
-                <input type="text" placeholder="Enter User ID" class="userid">
+                <label>User ID</label>
+                <input type="text" class="userid" placeholder="Enter User ID">
             </div>
             <div class="flex">
-                <label>Password*</label>
-                <input type="password" placeholder="Enter Password" class="password">
+                <label>Password</label>
+                <input type="password" class="password" placeholder="Enter Password">
             </div>
             <button class="login_btn">Login</button>
         </div>
 
-        <!-- Hidden Content: Product Details and Payment Section -->
         <div class="hidden-content">
             <div class="product-details">
-                <p>Get this high-quality KSRTC Eicher BS-III mod for just Rs39 (Early access).</p>
-                <p class="note">Note- Price may vary after the actual mod release.</p>
+                <h2>Game Models</h2>
+                <p class="discount">Rs70</p>
             </div>
-            <div class="discount">
-                Rs39 <span class="old-price">Rs70</span> (Limited time deal)
+
+            <div class="flex">
+                <label>Coupon Code (Optional)</label>
+                <input type="text" placeholder="Enter Coupon Code" class="coupon_code">
             </div>
+
             <div class="deal">Limited time offer! Don't miss out.</div>
             <div class="timer" style="display: none;">Loading timer...</div>
 
