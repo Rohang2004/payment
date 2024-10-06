@@ -186,7 +186,7 @@
             let couponApplied = false;
 
             // Generate QR code initially for the base price (Rs 70)
-            var defaultUpiLink = "upi://pay?pa=9110218701@ybl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase";
+            var defaultUpiLink = "upi://pay?pa=rachanna.rj@axl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase";
             var defaultQrLink = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(defaultUpiLink);
             $(".get_qr").attr("src", defaultQrLink);
             $(".qr_code").fadeIn();
@@ -208,7 +208,7 @@
                 $("#product-price").text("Rs " + productPrice);
 
                 // Generate QR code
-                var qrLink = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent("upi://pay?pa=9110218701@ybl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase");
+                var qrLink = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent("upi://pay?pa=rachanna.rj@axl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase");
                 $(".get_qr").attr("src", qrLink);
             });
 
@@ -222,7 +222,7 @@
             });
 
             $(".upi-link").click(function() {
-                window.location.href = "upi://pay?pa=9110218701@ybl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase";
+                window.location.href = "upi://pay?pa=rachanna.rj@axl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase";
             });
 
             // Countdown Timer
