@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Download - twelve.ten</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative; /* To position poppers */
+            overflow: hidden; /* Prevent scroll bars during animation */
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            z-index: 1; /* Ensure the container is above poppers */
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.2em;
+            color: #007BFF;
+        }
+
+        button {
+            padding: 12px;
+            font-size: 18px;
+            color: white;
+            background-color: #FF4500;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #FF6347;
+            transform: translateY(-2px);
+        }
+
+        .thank-you {
+            display: none; /* Initially hidden */
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Thank You for Your Purchase!</h1>
+        <button id="downloadBtn">Download Your File</button>
+        <p class="thank-you" id="thankYouMsg">Thank you for your purchase!</p>
+    </div>
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            // Path to your file
+            const filePath = 'https://drive.google.com/drive/u/6/folders/17DRxvIqIarMaRtjEwc0PIUEztYyixQba'; // Change this to your file name
+
+            // Show the thank you message
+            document.getElementById('thankYouMsg').style.display = 'block';
+
+            // Create a temporary anchor to trigger the download
+            const a = document.createElement('a');
+            a.href = filePath;
+            a.download = filePath.split('/').pop(); // This gets the file name
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+    </script>
+</body>
+</html>
