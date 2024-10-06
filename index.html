@@ -1,1 +1,219 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Product Purchase</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #f0f4f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        section {
+            width: 100%;
+            max-width: 500px;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #4CAF50;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .hidden-content, .payment-menu {
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #fafafa;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .timer {
+            font-size: 1rem;
+            color: #d9534f;
+            text-align: center;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .product-details {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        .note {
+            text-align: center;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 120px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="logo">
+        </div>
+        <h1>twelve.ten</h1>
+        <p class="note">Please provide accurate UTR/Transaction ID for successful download!</p>
+
+        <!-- Timer -->
+        <div class="timer" id="countdown"></div>
+
+        <!-- Login Form -->
+        <div class="login-form">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" placeholder="Enter Username" class="username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" placeholder="Enter Password" class="password">
+            </div>
+            <button class="login_btn">Submit</button>
+        </div>
+
+        <!-- Hidden Content After Login -->
+        <div class="hidden-content">
+            <div class="product-details">
+                <h2>KSRTC Eicher BS-III mod</h2>
+                <p class="price">Rs70</p>
+            </div>
+
+            <button class="confirm-payment">Confirm Payment</button>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 twelve.ten - All rights reserved</p>
+        </div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Timer countdown function
+            function startCountdown() {
+                const targetDate = new Date("October 12, 2024 00:00:00").getTime();
+
+                const timer = setInterval(function() {
+                    const now = new Date().getTime();
+                    const distance = targetDate - now;
+
+                    // Time calculations for days, hours, minutes, and seconds
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    // Display the result in the countdown div
+                    document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+                    // If the countdown is finished, display a message
+                    if (distance < 0) {
+                        clearInterval(timer);
+                        document.getElementById("countdown").innerHTML = "Sale Ended!";
+                    }
+                }, 1000);
+            }
+
+            // Start the countdown
+            startCountdown();
+
+            $(".login_btn").click(function() {
+                // Validate credentials
+                var username = $(".username").val();
+                var password = $(".password").val();
+
+                if (username === "RoadHost" && password === "promods@rh") {
+                    $(".hidden-content").show();
+                    $(".login-form").hide();
+                } else {
+                    alert("Invalid Username or Password.");
+                }
+            });
+
+            $(".confirm-payment").click(function() {
+                window.location.href = 'payment.html'; // Redirect to payment page
+            });
+        });
+    </script>
+</body>
+</html>
