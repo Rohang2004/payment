@@ -23,10 +23,9 @@
         }
 
         section {
-            width: 100%;
-            max-width: 600px;
-            background: #ffffff;
-            padding: 2px;
+            width: 500px;
+            height: auto;
+            padding: px;
             border-radius: 12px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
             border-top: 5px solid #4CAF50;
@@ -48,10 +47,11 @@
         label {
             font-weight: 600;
             color: #333;
+            padding-left: 22px;
         }
 
         input {
-            width: 100%;
+            width: 90%;
             padding: 12px;
             margin-top: 8px;
             border: 1px solid #ddd;
@@ -61,7 +61,7 @@
         }
 
         button {
-            width: 100%;
+            width: 90%;
             padding: 10px;
             background-color: #4CAF50;
             color: white;
@@ -71,6 +71,8 @@
             font-size: 14px;
             font-weight: 600;
             transition: background-color 0.3s ease;
+            text-align: center;
+            align-items: center;
         }
 
         button:hover {
@@ -111,6 +113,7 @@
         .download_now {
             background-color: #0066cc;
             margin-top: 20px;
+
         }
 
         .download_now:hover {
@@ -152,9 +155,9 @@
 
         <div class="form-group">
             <label>Coupon Code (if any)</label>
-            <input type="text" placeholder="Enter Coupon Code" class="coupon_code">
+         <center><input type="text" placeholder="Enter Coupon Code" class="coupon_code"></center>
         </div>
-        <button class="verify-btn">Apply Coupon</button>
+        <center><button class="verify-btn">Apply Coupon</button></center>
         <div class="qr_code">
             <p>Scan the QR Code with any UPI app to complete the payment.</p>
             <img src="" alt="QR Code" class="get_qr">
@@ -168,8 +171,8 @@
         </div>
         <div class="form-group">
             <label>UTR/Transaction ID (12 digits)</label>
-            <input type="text" class="id" placeholder="Enter Transaction ID" maxlength="12">
-            <button class="download_now">Download Now</button>
+            <center><input type="text" class="id" placeholder="Enter Transaction ID" maxlength="12"></center>
+            <center><button class="download_now">Download Now</button></center>
         </div>
 
         <div class="footer">
@@ -186,7 +189,7 @@
             let couponApplied = false;
 
             // Generate QR code initially for the base price (Rs 70)
-            var defaultUpiLink = "upi://pay?pa=rachanna.rj@axl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase";
+            var defaultUpiLink = "upi://pay?pa=9110218701@ybl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase";
             var defaultQrLink = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(defaultUpiLink);
             $(".get_qr").attr("src", defaultQrLink);
             $(".qr_code").fadeIn();
@@ -208,7 +211,7 @@
                 $("#product-price").text("Rs " + productPrice);
 
                 // Generate QR code
-                var qrLink = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent("upi://pay?pa=rachanna.rj@axl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase");
+                var qrLink = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent("upi://pay?pa=9110218701@ybl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase");
                 $(".get_qr").attr("src", qrLink);
             });
 
@@ -222,7 +225,7 @@
             });
 
             $(".upi-link").click(function() {
-                window.location.href = "upi://pay?pa=rachanna.rj@axl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase";
+                window.location.href = "upi://pay?pa=9110218701@ybl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase";
             });
 
             // Countdown Timer
