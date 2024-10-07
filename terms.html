@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #f7f7f7;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        section {
+            width: 100%;
+            max-width: 800px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .content p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        ul {
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .agree-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .agree-btn:hover {
+            background-color: #45a049;
+        }
+
+        .disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h1>Terms and Conditions</h1>
+        <div class="content" id="termsContent">
+            <p>Please read the following terms carefully before purchasing and using our mod:</p>
+            <ul>
+                <li><strong>1. No Redistribution:</strong> You agree not to share or distribute the mod files with others. The mod is for your personal use only.</li>
+                <li><strong>2. Pricing:</strong> The mod price may vary after the release. It could increase or decrease over time based on updates or promotions.</li>
+                <li><strong>3. Proper Credits:</strong> If you are reviewing or showcasing this mod on any public platform (e.g., YouTube, Twitch), you must provide proper credits to the original creators.</li>
+                <li><strong>4. No Refunds:</strong> All sales are final. Refunds will not be issued after purchase, except in cases of defective downloads or improper access.</li>
+                <li><strong>5. Mod Updates:</strong> Mod updates will be provided when available. However, there is no guarantee of frequency or content of updates.</li>
+                <li><strong>6. Digital Product:</strong> This mod is a digital product. You acknowledge that there are no physical items associated with this purchase.</li>
+                <li><strong>7. License:</strong> This mod is licensed, not sold. By purchasing, you are granted a non-exclusive, non-transferable license to use it for personal purposes only.</li>
+                <li><strong>8. Copyright Protection:</strong> The mod is protected by copyright law. Unauthorized sharing or reproduction is prohibited and may result in legal consequences.</li>
+                <li><strong>9. Performance Disclaimer:</strong> The mod's performance may vary depending on the hardware and software you are using. We are not responsible for issues arising from compatibility.</li>
+                <li><strong>10. Termination:</strong> Violation of any of these terms may result in the immediate revocation of access to the mod and potential legal action.</li>
+            </ul>
+            <p>By clicking "Agree," you acknowledge that you have read and accepted these terms and conditions.</p>
+        </div>
+
+        <!-- Agree Button -->
+        <button class="agree-btn disabled" id="agreeButton" disabled>Agree</button>
+    </section>
+
+    <script>
+        // Enable the "Agree" button only when the user has scrolled to the bottom of the content
+        document.getElementById('termsContent').addEventListener('scroll', function() {
+            const content = this;
+            const button = document.getElementById('agreeButton');
+
+            // Check if the user has scrolled to the bottom
+            if (content.scrollTop + content.clientHeight >= content.scrollHeight) {
+                button.classList.remove('disabled');
+                button.disabled = false;
+            }
+        });
+
+        // Redirect to a new page or perform some action when the user clicks "Agree"
+        document.getElementById('agreeButton').addEventListener('click', function() {
+            alert("You have agreed to the terms and conditions.");
+            window.location.href = 'payment.html';  // Redirect to payment page or any other page
+        });
+    </script>
+</body>
+</html>
