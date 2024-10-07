@@ -6,7 +6,7 @@
     <title>Payment Interface</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style type="text/css">
-        * {
+        * { 
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -170,7 +170,7 @@
             <a href="#" class="upi-link">Open UPI App</a>
         </div>
         <div class="form-group">
-            <label>UTR/Transaction ID (12 digits)</label>
+            <label>Transaction ID (after payment)</label>
             <center><input type="text" class="id" placeholder="Enter Transaction ID" maxlength="12"></center>
             <center><button class="download_now">Download Now</button></center>
         </div>
@@ -189,7 +189,7 @@
             let couponApplied = false;
 
             // Generate QR code initially for the base price (Rs 70)
-            var defaultUpiLink = "upi://pay?pa=9110218701@ybl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase";
+            var defaultUpiLink = "upi://pay?pa=rachanna.rj@axl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase";
             var defaultQrLink = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(defaultUpiLink);
             $(".get_qr").attr("src", defaultQrLink);
             $(".qr_code").fadeIn();
@@ -211,7 +211,7 @@
                 $("#product-price").text("Rs " + productPrice);
 
                 // Generate QR code
-                var qrLink = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent("upi://pay?pa=9110218701@ybl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase");
+                var qrLink = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent("upi://pay?pa=rachanna.rj@axl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase");
                 $(".get_qr").attr("src", qrLink);
             });
 
@@ -220,12 +220,12 @@
                 if (transactionId.length === 12) {
                     window.open('download.html', '_blank');
                 } else {
-                    alert("Please enter a valid 12-digit UTR/Transaction ID.");
+                    alert("Please enter a valid  UTR/Transaction ID.");
                 }
             });
 
             $(".upi-link").click(function() {
-                window.location.href = "upi://pay?pa=9110218701@ybl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase";
+                window.location.href = "upi://pay?pa=rachanna.rj@axl&pn=YourName&am=" + productPrice + "&cu=INR&tn=Purchase";
             });
 
             // Countdown Timer
